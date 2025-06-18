@@ -1,57 +1,59 @@
+---
+
 # 🚀 Projeto DevOps A3 — Strapi CMS
 
-Este projeto tem como objetivo demonstrar o processo completo de CI/CD utilizando GitHub Actions, Docker e Terraform com o **Strapi CMS**, conforme os requisitos da atividade A3 da disciplina de DevOps.
+Este repositório tem como finalidade apresentar uma implementação completa de CI/CD utilizando **GitHub Actions**, **Docker** e **Terraform** com o **Strapi CMS**, conforme solicitado na atividade A3 da disciplina de DevOps.
 
 ---
 
-## 📦 Tecnologias utilizadas
+## 📦 Tecnologias empregadas
 
-- **Strapi CMS** (v5)
-- **Docker**
-- **Docker Hub**
-- **GitHub Actions**
-- **Terraform**
-- **AWS ECS Fargate**
-- **Playwright** (para testes E2E)
-- **Node.js 18 + pnpm**
-- **SQLite** (persistido via volume no container)
-
----
-
-## ⚙️ Funcionalidades
-
-- CI/CD com GitHub Actions
-- Deploy automático na AWS (ECS + Fargate)
-- Build e push de imagem Docker
-- Testes automatizados E2E com Playwright
-- Uso de Secrets seguros com GitHub Secrets
-- Persistência de banco de dados via volume
+* **Strapi CMS** (v5)
+* **Docker**
+* **Docker Hub**
+* **GitHub Actions**
+* **Terraform**
+* **AWS ECS Fargate**
+* **Playwright** (para testes end-to-end)
+* **Node.js 18 + pnpm**
+* **SQLite** (armazenado em volume do container)
 
 ---
 
-## 📁 Estrutura do projeto
+## ⚙️ Recursos disponíveis
+
+* Integração e entrega contínua com GitHub Actions
+* Publicação automatizada na AWS (ECS + Fargate)
+* Criação e envio de imagens Docker
+* Testes automatizados de ponta a ponta com Playwright
+* Utilização segura de variáveis sensíveis via GitHub Secrets
+* Persistência dos dados do banco por volume local
+
+---
+
+## 📁 Organização do projeto
 
 ```
 .
 ├── .github/
 │   └── workflows/
-│       ├── deploy.yml         # Pipeline de Deploy
-│       └── tests.yml          # Pipeline de Testes
+│       ├── deploy.yml         # Workflow de Deploy
+│       └── tests.yml          # Workflow de Testes
 ├── terraform/
-│   ├── main.tf                # Infraestrutura AWS
-│   └── terraform.tfvars       # Variáveis do Terraform (gerado pela pipeline)
+│   ├── main.tf                # Definição da infraestrutura na AWS
+│   └── terraform.tfvars       # Variáveis da infraestrutura (geradas na pipeline)
 ├── tests/
-│   └── e2e.spec.ts            # Testes com Playwright
-├── .env                       # Variáveis de ambiente (não commitado)
-├── Dockerfile                 # Configuração da imagem
+│   └── e2e.spec.ts            # Roteiros de teste com Playwright
+├── .env                       # Arquivo de variáveis (não versionado)
+├── Dockerfile                 # Instruções para gerar a imagem
 └── README.md
 ```
 
 ---
 
-## 🚀 Como rodar localmente
+## 🚀 Executando localmente
 
-1. Crie um arquivo `.env` com as variáveis obrigatórias:
+1. Crie o arquivo `.env` com os seguintes valores:
 
 ```
 APP_KEYS=...
@@ -61,14 +63,14 @@ JWT_SECRET=...
 DATABASE_FILENAME=.tmp/data.db
 ```
 
-2. Rode o Docker local:
+2. Execute a aplicação com Docker:
 
 ```bash
 docker build -t strapi-a3 .
 docker run -p 1337:1337 --env-file .env -v ${PWD}/.tmp:/app/.tmp strapi-a3
 ```
 
-No Windows (PowerShell):
+Para usuários Windows (PowerShell):
 
 ```powershell
 docker run -p 1337:1337 --env-file .env -v ${PWD}/.tmp:/app/.tmp strapi-a3
@@ -76,13 +78,13 @@ docker run -p 1337:1337 --env-file .env -v ${PWD}/.tmp:/app/.tmp strapi-a3
 
 ---
 
-## ✅ Testes Automatizados
+## ✅ Testes automatizados
 
-- Feitos com **Playwright**
-- Rodam via GitHub Actions em pull requests
-- Testam pelo menos 2 coleções do CMS
+* Desenvolvidos com **Playwright**
+* Executados automaticamente via GitHub Actions em pull requests
+* Verificam o funcionamento de ao menos duas coleções no CMS
 
-### Rodar local
+### Executar localmente
 
 ```bash
 pnpm install
@@ -92,60 +94,63 @@ pnpm exec playwright test
 
 ---
 
-## 🧪 GitHub Actions
+## 🧪 Workflows no GitHub Actions
 
-### `tests.yml` (PRs)
+### `tests.yml` (Pull Requests)
 
-- Roda em `pull_request`
-- Instala dependências
-- Sobe o Strapi
-- Executa testes E2E
+* Disparado em eventos de `pull_request`
+* Realiza a instalação de dependências
+* Inicializa o Strapi
+* Executa os testes automatizados
 
 ### `deploy.yml` (Deploy)
 
-- Roda em `push` na `develop`
-- Faz build/push da imagem Docker
-- Executa `terraform apply` para criar infraestrutura na AWS
+* Executado ao realizar `push` na branch `develop`
+* Constrói e envia a imagem para o Docker Hub
+* Aplica a infraestrutura via `terraform apply` na AWS
 
 ---
 
 ## ☁️ Secrets necessários no GitHub
 
-| Nome                  | Descrição                         |
-| --------------------- | --------------------------------- |
-| DOCKER_USERNAME       | Usuário Docker Hub                |
-| DOCKER_PASSWORD       | Senha Docker Hub                  |
-| APP_KEYS              | Chave do Strapi                   |
-| API_TOKEN_SALT        | Salt para tokens                  |
-| ADMIN_JWT_SECRET      | JWT do admin                      |
-| JWT_SECRET            | JWT geral                         |
-| DATABASE_FILENAME     | `.tmp/data.db`                    |
-| AWS_ACCESS_KEY_ID     | Chave da IAM                      |
-| AWS_SECRET_ACCESS_KEY | Chave secreta da IAM              |
-| ECS_EXECUTION_ROLE    | Role de execução ECS              |
-| ECS_TASK_ROLE         | Role da Task ECS                  |
-| SUBNET_IDS            | Lista de subnets da VPC           |
-| SECURITY_GROUP_ID     | ID do Security Group (porta 1337) |
+| Nome                     | Finalidade                            |
+| ------------------------ | ------------------------------------- |
+| DOCKER\_USERNAME         | Usuário do Docker Hub                 |
+| DOCKER\_PASSWORD         | Senha da conta Docker                 |
+| APP\_KEYS                | Chaves de aplicação do Strapi         |
+| API\_TOKEN\_SALT         | Salt para geração de tokens           |
+| ADMIN\_JWT\_SECRET       | JWT do painel administrativo          |
+| JWT\_SECRET              | JWT geral da aplicação                |
+| DATABASE\_FILENAME       | Caminho para o banco SQLite           |
+| AWS\_ACCESS\_KEY\_ID     | Chave de acesso IAM da AWS            |
+| AWS\_SECRET\_ACCESS\_KEY | Chave secreta da IAM da AWS           |
+| ECS\_EXECUTION\_ROLE     | Permissão de execução no ECS          |
+| ECS\_TASK\_ROLE          | Permissão da Task ECS                 |
+| SUBNET\_IDS              | Lista de sub-redes da VPC             |
+| SECURITY\_GROUP\_ID      | ID do grupo de segurança (porta 1337) |
 
 ---
 
-## 📌 Observações
+## 📌 Considerações
 
-- Não é utilizado Kubernetes.
-- O banco SQLite é persistido com `-v ./tmp:/app/.tmp` no container.
-- O deploy é feito com Terraform automaticamente pela pipeline.
+* Kubernetes não foi utilizado neste projeto.
+* O banco de dados SQLite é armazenado via volume com `-v ./tmp:/app/.tmp`.
+* O processo de deploy é totalmente automatizado via Terraform na pipeline.
 
 ---
 
-## 👨‍💻 Acesso ao Strapi
+## 👨‍💻 Acesso ao painel do Strapi
 
-- **URL**: http://localhost:1337
-- **Super Admin**
-  - Email: admin@satc.edu.br
-  - Senha: welcomeToStrapi123
+* **Endereço**: [http://localhost:1337](http://localhost:1337)
+* **Conta administrativa**:
+
+  * Email: [admin@satc.edu.br](mailto:admin@satc.edu.br)
+  * Senha: welcomeToStrapi123
 
 ---
 
 ## 🧠 Conclusão
 
-Este projeto demonstra na prática como criar uma pipeline completa de DevOps com foco em microsserviços, testes automatizados, containerização e provisionamento de infraestrutura como código.
+Este projeto serve como exemplo prático de como implementar uma pipeline completa de DevOps, englobando microsserviços, automação de testes, uso de containers e provisionamento de infraestrutura como código.
+
+---
