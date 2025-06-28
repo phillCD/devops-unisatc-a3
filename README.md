@@ -151,6 +151,6 @@ pnpm exec playwright test
 
 ## 🧠 Conclusão
 
-Este projeto serve como exemplo prático de como implementar uma pipeline completa de DevOps, englobando microsserviços, automação de testes, uso de containers e provisionamento de infraestrutura como código. 
+Este projeto serve como exemplo prático de como implementar uma pipeline completa de DevOps, englobando microsserviços, automação de testes, uso de containers e provisionamento de infraestrutura como código.
 
 ---
