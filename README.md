@@ -98,7 +98,7 @@ pnpm exec playwright test
 
 ### `tests.yml` (Pull Requests)
 
-* Disparado em eventos de `pull_request`
+* Disparado em eventos de `pull_request` na branch `develop`
 * Realiza a instalação de dependências
 * Inicializa o Strapi
 * Executa os testes automatizados
@@ -151,6 +151,6 @@ pnpm exec playwright test
 
 ## 🧠 Conclusão
 
-Este projeto serve como exemplo prático de como implementar uma pipeline completa de DevOps, englobando microsserviços, automação de testes, uso de containers e provisionamento de infraestrutura como código.
+Este projeto serve como exemplo prático de como implementar uma pipeline completa de DevOps, englobando microsserviços, automação de testes, uso de containers e provisionamento de infraestrutura como código. 
 
 ---

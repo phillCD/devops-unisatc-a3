@@ -10,18 +10,18 @@ jobs:
     timeout-minutes: 15
 
     steps:
-      - name: Checkout repository
+      - name: Checkout do repositório
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      - name: Ajustar Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      - name: Install pnpm
+      - name: Instalar pnpm
         run: npm install -g pnpm
 
-      - name: Install dependencies
+      - name: Instalar dependências
         run: pnpm install
 
       - name: Definir variáveis de ambiente
@@ -33,10 +33,10 @@ jobs:
           echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
           echo "DATABASE_FILENAME=${{ secrets.DATABASE_FILENAME }}" >> .env
 
-      - name: Build Strapi
+      - name: Constroi o Strapi
         run: pnpm build
 
-      - name: Start Strapi
+      - name: Iniciar o Strapi
         env:
           HOST: 0.0.0.0
           PORT: 1337
@@ -51,8 +51,8 @@ jobs:
             sleep 5
           done
 
-      - name: Install Playwright Browsers
+      - name: Instalar Playwright e dependências
         run: pnpm exec playwright install --with-deps
 
-      - name: Run Playwright Tests
+      - name: Executar testes E2E com Playwright
         run: pnpm exec playwright test

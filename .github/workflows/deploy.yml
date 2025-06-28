@@ -9,13 +9,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout do repositório
         uses: actions/checkout@v4
 
-      - name: Docker login
+      - name: Login no Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-      - name: Build and push Docker image
+      - name: Constroi e publica a imagem Docker
         run: |
           docker build -t ${{ secrets.DOCKER_USERNAME }}/strapi-a3 \
             --build-arg APP_KEYS="${{ secrets.APP_KEYS }}" \
@@ -44,7 +44,7 @@ jobs:
             -v ${{ github.workspace }}/volumes/tmp:/app/.tmp \
             ${{ secrets.DOCKER_USERNAME }}/strapi-a3
 
-      - name: Setup Terraform
+      - name: Iniciar terraform
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.6.6
