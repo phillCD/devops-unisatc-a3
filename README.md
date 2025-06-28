@@ -98,7 +98,7 @@ pnpm exec playwright test
 
 ### `tests.yml` (Pull Requests)
 
-* Disparado em eventos de `pull_request`
+* Disparado em eventos de `pull_request` na branch `develop`
 * Realiza a instalação de dependências
 * Inicializa o Strapi
 * Executa os testes automatizados
